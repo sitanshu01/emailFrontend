@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navbar1 from "../components/navbarAdmin1";
-import { adminAPI } from "../api/adminV0";
 import { useNavigate } from "react-router-dom";
+import { adminAPI } from "../api/admin";
 
 const CreateForm = () => {
   const navigate = useNavigate();

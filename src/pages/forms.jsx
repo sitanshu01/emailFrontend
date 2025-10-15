@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar1 from "../components/navbarAdmin1";
-import { adminAPI } from "../api/adminV0";
+import { adminAPI } from "../api/admin";
 import { useNavigate } from "react-router-dom";
 import {Plus, Edit, Notebook, NotebookPen, NotebookPenIcon} from 'lucide-react';
 

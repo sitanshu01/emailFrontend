@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar1 from "../components/navbarAdmin1";
-import { adminAPI } from "../api/adminV0";
+import { adminAPI } from "../api/admin";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Copy } from "lucide-react";
 
