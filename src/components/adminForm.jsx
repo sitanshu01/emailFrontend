@@ -9,7 +9,8 @@ function AdminForm() {
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [branch, setBranch] = useState("");
+  const [branch, setBranch] = useState("CS");
+  console.log(branch);
   const [loading, setLoading] = useState(false);
   const branches = [
     "CS",
@@ -39,8 +40,8 @@ function AdminForm() {
     });
     console.log(response);
     setLoading(false);
-    navigate('/superadmin/viewadmin');
-  }
+    navigate("/superadmin/viewadmin");
+  };
 
   return (
     <div className="w-full bg-white rounded-lg shadow p-4 sm:p-6">
@@ -116,7 +117,6 @@ function AdminForm() {
             disabled={loading}
           >
             {loading ? "Creating..." : "Create"}
-
           </button>
         </div>
       </form>
@@ -125,4 +125,3 @@ function AdminForm() {
 }
 
 export default AdminForm;
-

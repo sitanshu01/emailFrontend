@@ -1,22 +1,28 @@
-import apiClient from './config.js';
+import axiosInstance from './axios';
 
 // Student API endpoints
 export const studentAPI = {
   // Get student profile
   getProfile: async () => {
-    const response = await apiClient.get('/student/profile');
+    const response = await axiosInstance.get('/student/profile');
     return response.data;
   },
 
   // Get form by share ID
   getForm: async (shareId) => {
-    const response = await apiClient.get(`/student/form/${shareId}`);
+    const response = await axiosInstance.get(`/student/form/${shareId}`);
     return response.data;
   },
 
   // Submit form
   submitForm: async (shareId, formData) => {
-    const response = await apiClient.post(`/student/form/${shareId}`, formData);
+    const response = await axiosInstance.post(`/student/form/${shareId}`, formData);
+    return response.data;
+  },
+
+  // Get student dashboard summary
+  getStudentDashboardSummary: async () => {
+    const response = await axiosInstance.get('/student/dashboard/summary');
     return response.data;
   }
 };

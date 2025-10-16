@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Navbar1 from "../components/navbarAdmin1";
+import NavbarAdmin from "../components/navbarAdmin";
 import { useNavigate } from "react-router-dom";
 import { adminAPI } from "../api/admin";
 
@@ -51,22 +51,22 @@ const CreateForm = () => {
     updated[qIndex].options[oIndex] = value;
     setQuestions(updated);
   };
-  const handleSubmit = async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const payload = {formName, questions};
+      const payload = { formName, questions };
       const response = await adminAPI.createForm(payload);
       console.log("Form created:", response);
       alert("Form created successfully!");
-      navigate('/admin');
+      navigate("/admin");
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <>
-      <Navbar1 />
+      <NavbarAdmin />
       <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded-lg mt-20">
         <h2 className="text-2xl font-bold mb-4">Create Form</h2>
 

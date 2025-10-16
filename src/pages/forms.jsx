@@ -1,8 +1,16 @@
+import {
+  Copy,
+  Edit,
+  Notebook,
+  NotebookPenIcon,
+  Plus,
+  Share2,
+} from "lucide-react";
 import { useEffect, useState } from "react";
-import Navbar1 from "../components/navbarAdmin1";
-import { adminAPI } from "../api/admin";
 import { useNavigate } from "react-router-dom";
-import {Plus, Edit, Notebook, NotebookPen, NotebookPenIcon} from 'lucide-react';
+import { toast } from "react-toastify";
+import { adminAPI } from "../api/admin";
+import NavbarAdmin from "../components/navbarAdmin";
 
 function FormsPage() {
   const navigate = useNavigate();
@@ -10,19 +18,20 @@ function FormsPage() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchForms = async () => {
+    try {
+      const response = await adminAPI.getForms();
+      setForms(response.data || []);
+      console.log(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setError("Failed to load forms.");
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchForms = async () => {
-      try {
-        const response = await adminAPI.getForms();
-        setForms(response.data || []);
-        console.log(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setError("Failed to load forms.");
-        setLoading(false);
-      }
-    };
     fetchForms();
   }, []);
 
@@ -38,10 +47,34 @@ function FormsPage() {
     navigate("/admin/createform");
   };
 
+  const handleEnableShareId = async (formId) => {
+    try {
+      await adminAPI.enableShareId(formId);
+      toast.success("Share ID enabled successfully!");
+      fetchForms(); // Refresh the forms list
+    } catch (error) {
+      console.error("Error enabling share ID:", error);
+      toast.error("Failed to enable Share ID.");
+    }
+  };
+
+  const handleCopyUrl = (shareId) => {
+    const formUrl = `http://localhost:5173/form/${shareId}`;
+    navigator.clipboard
+      .writeText(formUrl)
+      .then(() => {
+        toast.success("Form URL copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Failed to copy URL:", err);
+        toast.error("Failed to copy URL.");
+      });
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar1 />
+        <NavbarAdmin />
         <div className="max-w-7xl mx-auto p-6">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
@@ -56,7 +89,7 @@ function FormsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar1 />
+      <NavbarAdmin />
       <div className="max-w-7xl mx-auto p-6 mt-20">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -70,7 +103,7 @@ function FormsPage() {
             onClick={handleCreateNew}
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition-all duration-200 flex items-center gap-2"
           >
-            <Plus className="w-5 h-5"/>
+            <Plus className="w-5 h-5" />
             Create New Form
           </button>
         </div>
@@ -93,7 +126,7 @@ function FormsPage() {
               onClick={handleCreateNew}
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg inline-flex items-center gap-2"
             >
-              <Plus className="w-5 h-5"/>
+              <Plus className="w-5 h-5" />
               Create Your First Form
             </button>
           </div>
@@ -122,39 +155,74 @@ function FormsPage() {
                           {form.published ? "Published" : "Draft"}
                         </span>
                       </div>
-                      
+
                       <div className="flex items-center gap-6 text-sm text-gray-600 mt-3">
                         <div className="flex items-center gap-2">
-                          <Notebook className="w-4 h-4"/>
-                          <span>
-                            {form.question?.length || 0} questions
-                          </span>
+                          <Notebook className="w-4 h-4" />
+
+                          <span>{form.question?.length || 0} questions</span>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
-                          <NotebookPenIcon/>
+                          <NotebookPenIcon />
+
                           <span>
-                            Created {new Date(form.createdAt).toLocaleDateString()}
+                            Created{" "}
+                            {new Date(form.createdAt).toLocaleDateString()}
                           </span>
                         </div>
                       </div>
+
+                      {form.shareId && (
+                        <div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
+                          <span className="font-medium">Shareable Link:</span>
+
+                          <a
+                            href={`http://localhost:5173/form/${form.shareId}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline truncate"
+                          >
+                            {`http://localhost:5173/form/${form.shareId}`}
+                          </a>
+                        </div>
+                      )}
                     </div>
 
                     {/* Right side - Action buttons */}
+
                     <div className="flex items-center gap-3 ml-6">
+                      {!form.shareId ? (
+                        <button
+                          onClick={() => handleEnableShareId(form.id)}
+                          className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center gap-2"
+                        >
+                          <Share2 className="w-5 h-5" />
+                          Generate Shareable Link
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleCopyUrl(form.shareId)}
+                          className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center gap-2"
+                        >
+                          <Copy className="w-5 h-5" />
+                          Copy URL
+                        </button>
+                      )}
+
                       <button
                         onClick={() => handleViewSubmissions(form.id)}
                         className="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center gap-2"
                       >
-                        <Notebook/>
+                        <Notebook />
                         View Submissions
                       </button>
-                      
+
                       <button
                         onClick={() => handleEdit(form.id)}
                         className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center gap-2"
                       >
-                        <Edit/>
+                        <Edit />
                         Edit
                       </button>
                     </div>
@@ -170,3 +238,4 @@ function FormsPage() {
 }
 
 export default FormsPage;
+

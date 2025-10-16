@@ -24,19 +24,21 @@ function Home() {
             Email ID and access campus services{" "}
           </h2>
           <div className="flex gap-5 mt-10 z-10">
-            <Link to="/login"><Button variant="primary"> Login</Button></Link>
-            <Link to="/signup"><Button variant="secondary">Sign Up</Button></Link>
+            <Link to="/login">
+              <Button variant="primary"> Login</Button>
+            </Link>
+            <Link to="/signup">
+              <Button variant="secondary">Sign Up</Button>
+            </Link>
           </div>
           <div className="w-full fixed top-0 left-0 font-medium ">
             <Navbar></Navbar>
           </div>
         </div>
       </div>
-      <FaqSection/>
-      <Footer/>
+      <FaqSection />
+      <Footer />
     </>
-    
   );
 }
 export default Home;
-

@@ -1,36 +1,34 @@
-import apiClient from './config.js';
+import axiosInstance from './axios';
 
 // Super Admin API endpoints
 export const superAdminAPI = {
-  // Create admin
+  // Create a new admin
   createAdmin: async (adminData) => {
-    const response = await apiClient.post('/super_admin/create/admin', adminData);
+    const response = await axiosInstance.post('/super_admin/admin', adminData);
     return response.data;
   },
 
-  //get all admins
-  getAllAdmins: async ()=>{
-    const response = await apiClient.get('/super_admin/get/admins');
+  // Get all admins
+  getAdmins: async () => {
+    const response = await axiosInstance.get('/super_admin/admin');
     return response.data;
   },
 
-  // Delete admin
-  deleteAdmin: async (adminData) => {
-    const response = await apiClient.post('/super_admin/delete/admin', adminData);
+  // Get a single admin by ID
+  getAdminById: async (adminId) => {
+    const response = await axiosInstance.get(`/super_admin/admin/${adminId}`);
     return response.data;
-  }
-};
-
-// Data schemas for super admin operations
-export const superAdminDataSchemas = {
-  createAdmin: {
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    email: '',
-    branch: ''
   },
-  deleteAdmin: {
-    email: ''
+
+  // Update an admin by ID
+  updateAdmin: async (adminId, adminData) => {
+    const response = await axiosInstance.put(`/super_admin/admin/${adminId}`, adminData);
+    return response.data;
+  },
+
+  // Delete an admin by ID
+  deleteAdmin: async (adminId) => {
+    const response = await axiosInstance.delete(`/super_admin/admin/${adminId}`);
+    return response.data;
   }
 };

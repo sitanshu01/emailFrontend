@@ -50,18 +50,18 @@ const Signup = () => {
         password,
         branch,
         rollNumber,
-        role: "STUDENT"
+        role: "STUDENT",
       };
 
       const response = await authAPI.signup(userData);
-      
-      if (response.message === 'otp sent') {
+
+      if (response.message === "otp sent") {
         // Navigate to OTP verification page with email
-        navigate('/verify-otp', { 
-          state: { email: email } 
+        navigate("/verify-otp", {
+          state: { email: email },
         });
       } else {
-        setError(response.message || 'Signup failed');
+        setError(response.message || "Signup failed");
       }
     } catch (error) {
       const errorInfo = handleApiError(error);
@@ -304,7 +304,7 @@ const Signup = () => {
                 ].join(" ")}
                 aria-disabled={!canSubmit || loading}
               >
-                {loading ? 'Signing up...' : 'Sign Up'}
+                {loading ? "Signing up..." : "Sign Up"}
               </button>
             )}
 

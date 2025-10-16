@@ -20,35 +20,31 @@ const Login = () => {
       const credentials = {
         email,
         password,
-        role
+        role,
       };
 
-      const response = await authAPI.signin(credentials);
-      console.log(response);
-      if (response.message === 'signin success') {
+      const { user } = await authAPI.signin(credentials);
+      console.log(user);
+      if (user) {
         // Store user data
-        const userData = {
-          email,
-          role
-        };
-        localStorage.setItem('user', JSON.stringify(userData));
-        
+        localStorage.setItem("user", JSON.stringify(user));
+
         // Navigate based on role
-        switch (role) {
-          case 'STUDENT':
-            navigate('/student/dashboard');
+        switch (user.role.name) {
+          case "STUDENT":
+            navigate("/student/dashboard");
             break;
-          case 'ADMIN':
-            navigate('/admin');
+          case "ADMIN":
+            navigate("/admin");
             break;
-          case 'SUPERADMIN':
-            navigate('/superadmin');
+          case "SUPERADMIN":
+            navigate("/superadmin");
             break;
           default:
-            navigate('/');
+            navigate("/");
         }
       } else {
-        setError(response.error || 'Login failed');
+        setError(response.error || "Login failed");
       }
     } catch (error) {
       const errorInfo = handleApiError(error);
@@ -68,13 +64,13 @@ const Login = () => {
           <p className="w-full text-center text-neutral-400">
             Login to Online Email Allotment System by NITH
           </p>
-          
+
           {error && (
             <div className="w-2/3 bg-red-900/20 border border-red-500/50 text-red-400 px-4 py-3 rounded-md text-center">
               {error}
             </div>
           )}
-          
+
           <form
             onSubmit={handleOnSubmit}
             className="flex flex-col gap-5 w-full items-center justify-around "
@@ -133,12 +129,12 @@ const Login = () => {
               type="submit"
               disabled={loading}
               className={`w-2/3 rounded-md px-3 py-1 font-medium transition-colors ${
-                loading 
-                  ? 'bg-neutral-600 text-neutral-400 cursor-not-allowed' 
-                  : 'bg-white text-black hover:bg-neutral-200'
+                loading
+                  ? "bg-neutral-600 text-neutral-400 cursor-not-allowed"
+                  : "bg-white text-black hover:bg-neutral-200"
               }`}
             >
-              {loading ? 'Logging in...' : 'Login'}
+              {loading ? "Logging in..." : "Login"}
             </button>
             <h1>
               Don't have a account?{" "}

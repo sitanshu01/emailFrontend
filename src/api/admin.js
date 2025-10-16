@@ -1,49 +1,58 @@
-import apiClient from "./config";
+import axiosInstance from './axios';
 
 // Admin API endpoints
 export const adminAPI = {
-    getProfile: async () => {
-        const response = await apiClient.get("/admin/profile");
-        return response.data;
-    },
+  // Create a new form
+  createForm: async (formData) => {
+    const response = await axiosInstance.post('/admin/form', formData);
+    return response.data;
+  },
 
-    getForms: async () => {
-        const response = await apiClient.get("/admin/forms");
-        return response.data;
-    },
+  // Get all forms for the admin
+  getForms: async () => {
+    const response = await axiosInstance.get('/admin/form');
+    return response.data;
+  },
 
-    getForm: async (formId) => {
-        const response = await apiClient.get(`/admin/form/${formId}`);
-        return response.data;
-    },
-    // Form Management
-    createForm: async (formData) => {
-        const response = await apiClient.post("/admin/create/form", formData);
-        return response.data;
-    },
+  // Get a single form by ID
+  getFormById: async (formId) => {
+    const response = await axiosInstance.get(`/admin/form/${formId}`);
+    return response.data;
+  },
 
-    deleteForm: async (formId) => {
-        const response = await apiClient.delete(`/admin/form/${formId}`);
-        return response.data;
-    },
+  // Update a form by ID
+  updateForm: async (formId, formData) => {
+    const response = await axiosInstance.put(`/admin/form/${formId}`, formData);
+    return response.data;
+  },
 
-    updateForm: async (formId, formData) => {
-        const response = await apiClient.put(`/admin/update/form/${formId}`, formData);
-        return response.data;
-    },
+  // Delete a form by ID
+  deleteForm: async (formId) => {
+    const response = await axiosInstance.delete(`/admin/form/${formId}`);
+    return response.data;
+  },
 
-    publishForm: async (formId) => {
-        const response = await apiClient.put(`/admin/form/publish/${formId}`);
-        return response.data;
-    },
+  // Enable Share ID for a form
+  enableShareId: async (formId) => {
+    const response = await axiosInstance.put(`/admin/form/publish/${formId}`);
+    return response.data;
+  },
 
-    unpublishForm: async (formId) => {
-        const response = await apiClient.put(`/admin/form/unpublish/${formId}`);
-        return response.data;
-    },
+  // Get submissions for a form
+  getSubmissions: async (formId) => {
+    const response = await axiosInstance.get(`/admin/submissions/${formId}`);
+    return response.data;
+  },
 
-    getSubmissions: async (formId) => {
-        const response = await apiClient.get(`/admin/submissions/${formId}`);
-        return response.data;
-    }
-}
+  // Update submission status
+  updateSubmissionStatus: async (submissionId, status) => {
+    const response = await axiosInstance.patch(`/admin/submissions/${submissionId}/status`, { status });
+    return response.data;
+  },
+
+  // Get admin dashboard summary
+  getAdminDashboardSummary: async () => {
+    const response = await axiosInstance.get('/admin/dashboard/summary');
+    return response.data;
+  }
+};

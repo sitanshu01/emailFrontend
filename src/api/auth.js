@@ -1,22 +1,22 @@
-import apiClient from './config.js';
+import axiosInstance from './axios';
 
 // Auth API endpoints
 export const authAPI = {
   // Student signup
   signup: async (userData) => {
-    const response = await apiClient.post('/auth/signup', userData);
+    const response = await axiosInstance.post('/auth/signup', userData);
     return response.data;
   },
 
   // User signin (all roles)
   signin: async (credentials) => {
-    const response = await apiClient.post('/auth/signin', credentials);
+    const response = await axiosInstance.post('/auth/signin', credentials);
     return response.data;
   },
 
   // Refresh access token
   refreshToken: async () => {
-    const response = await apiClient.post('/auth/refresh');
+    const response = await axiosInstance.post('/auth/refresh');
     return response.data;
   },
 

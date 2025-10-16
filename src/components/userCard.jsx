@@ -12,17 +12,15 @@ export default function UserCard({
   createdAt,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const deleteAdmin = async() => {
+  const deleteAdmin = async () => {
     console.log("Delete admin with ID:", id);
     try {
-      const response = await superAdminAPI.deleteAdmin({
-        email: email
-      });
+      const response = await superAdminAPI.deleteAdmin(id);
       console.log(response);
     } catch (error) {
       console.error("Error deleting admin:", error);
     }
-  }
+  };
 
   return (
     <>
@@ -52,7 +50,6 @@ export default function UserCard({
               <h1 className=" text-xl">{`${email} `}</h1>
               <h1 className=" text-xl">{`${branch} `}</h1>
               <h1 className=" text-xl">{`${createdAt} `}</h1>
-              
             </div>
             <h1>{}</h1>
           </div>
@@ -87,4 +84,3 @@ export default function UserCard({
     </>
   );
 }
-

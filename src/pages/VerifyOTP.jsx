@@ -47,15 +47,15 @@ const VerifyOTP = () => {
 
       const otpData = {
         email: email,
-        otp: otpString
+        otp: otpString,
       };
 
       const response = await otpAPI.verifyOTP(otpData);
-      
+
       if (response.status === "OTP verified") {
         // Navigate to login page after successful verification
-        navigate('/login', { 
-          state: { message: 'Email verified successfully! Please login.' } 
+        navigate("/login", {
+          state: { message: "Email verified successfully! Please login." },
         });
       } else {
         setErrorMsg("Invalid OTP. Please try again.");

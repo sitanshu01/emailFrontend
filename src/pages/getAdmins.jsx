@@ -1,6 +1,6 @@
 import { superAdminAPI } from "../api/superAdmin";
 import AdminCard from "../components/adminCard";
-import NithNav from "../components/nithnav";
+import NavbarSuperAdmin from "../components/superAdminNavbar";
 import { useEffect, useState } from "react";
 import UserCard from "../components/userCard";
 
@@ -11,22 +11,22 @@ function GetAdmins() {
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
-        const response = await superAdminAPI.getAllAdmins();
+        const response = await superAdminAPI.getAdmins();
         setAdmins(response.data);
         setCount(response.data.length || 0);
         console.log(response.data);
-        console.log(response)
-        console.log("hello")
+        console.log(response);
+        console.log("hello");
       } catch (error) {
         console.error("Error fetching admins:", error);
       }
-    }
+    };
     fetchAdmins();
-  },[])
+  }, []);
 
   return (
     <div>
-      <NithNav></NithNav>
+      <NavbarSuperAdmin></NavbarSuperAdmin>
       <div className="flex justify-between items-center gap-2 pr-8">
         <div className="mt-19 mb-10 ml-10">
           <h1 className="font-bold text-3xl">Admins</h1>
@@ -59,4 +59,3 @@ function GetAdmins() {
 }
 
 export default GetAdmins;
-

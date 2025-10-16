@@ -24,7 +24,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/student/dashboard" element={<Dashboard />}></Route>
-        <Route path="/submit/form/:shareId" element={<SubmitForms />}></Route>
+        <Route path="/form/:shareId" element={<SubmitForms />}></Route>
         {/* admin */}
         <Route path="/admin" element={<AdminPage />}></Route>
         <Route path="/admin/forms" element={<FormsPage />}></Route>

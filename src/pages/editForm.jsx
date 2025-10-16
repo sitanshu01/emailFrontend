@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Navbar1 from "../components/navbarAdmin1";
+import NavbarAdmin from "../components/navbarAdmin";
 import { adminAPI } from "../api/admin";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Copy } from "lucide-react";
@@ -233,7 +233,7 @@ const handlePublishToggle = async () => {
 
   return (
     <>
-      <Navbar1 />
+      <NavbarAdmin />
       <div className="max-w-3xl mx-auto p-6 bg-white shadow rounded-lg mt-20">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold">Update Form</h2>

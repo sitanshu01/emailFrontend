@@ -1,10 +1,16 @@
-import apiClient from './config.js';
+import axiosInstance from './axios';
 
 // OTP API endpoints
 export const otpAPI = {
-  // Verify OTP for email verification
+  // Verify OTP
   verifyOTP: async (otpData) => {
-    const response = await apiClient.post('/otp/verify_otp', otpData);
+    const response = await axiosInstance.post('/otp/verify_otp', otpData);
+    return response.data;
+  },
+
+  // Resend OTP
+  resendOtp: async () => {
+    const response = await axiosInstance.post('/otp/resend');
     return response.data;
   }
 };

@@ -19,11 +19,7 @@ function Error() {
         </div>
       </nav>
       <div className="flex flex-col justify-center items-center h-screen">
-        <img
-          src={fourOfour}
-          alt="404 Error"
-          className="h-50 w-80"
-        />
+        <img src={fourOfour} alt="404 Error" className="h-50 w-80" />
         <h2 className="mt-1">
           The page you&apos;re looking for is not available
         </h2>

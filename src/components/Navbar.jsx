@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
   return (
     <nav className=" text-black px-4 py-2.5 fixed top-0 left-0 w-full z-50 ">
       <div className="flex justify-between items-center gap-2 pr-8 ">
-        <div className="flex justify-center items-center gap-2">
+        <div
+          onClick={() => navigate("/")}
+          className="flex justify-center items-center gap-2"
+        >
           <img
             src="/src/assets/nithlogo.png"
             alt="NITH Logo"
@@ -21,8 +25,12 @@ function Navbar() {
           <a href="#about" className="hover:text-blue-800">
             About Us
           </a>
-          <Link to='/login' className="hover:text-blue-800">Login</Link>
-          <Link to='/signup' className="hover:text-blue-800">Signup</Link>
+          <Link to="/login" className="hover:text-blue-800">
+            Login
+          </Link>
+          <Link to="/signup" className="hover:text-blue-800">
+            Signup
+          </Link>
         </div>
       </div>
     </nav>
