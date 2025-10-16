@@ -1,12 +1,45 @@
-# React + Vite
+# Frontend Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend application for the FullStack Web Development project. It provides the user interface for interacting with the backend API.
 
-Currently, two official plugins are available:
+## Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework:** [React](https://react.dev/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Package Manager:** [npm](https://www.npmjs.com/) or [pnpm](https://pnpm.io/)
 
-## Expanding the ESLint configuration
+## Setup and Running Locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Navigate to the frontend directory:**
+
+   ```bash
+   cd emailFrontend
+   ```
+
+2. **Create a `.env` file (if it doesn't exist):**
+   If you don't have a `.env` file, create one and add the `VITE_HTTP_URL`.
+
+   ```bash
+   touch .env
+   ```
+
+   Add the following to your `.env` file:
+
+   ```
+   VITE_HTTP_URL = "http://localhost:3000" # Points to your backend API
+   ```
+
+3. **Install Dependencies:**
+
+   ```bash
+   npm install # or pnpm install
+   ```
+
+4. **Start the Development Server:**
+
+   ```bash
+   npm run dev # or pnpm run dev
+   ```
+
+5. **Access the Frontend Application:**
+   The frontend application will typically be available at `http://localhost:5173` (or another port indicated by your terminal after running `npm run dev`).
